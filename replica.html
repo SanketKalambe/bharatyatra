@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BharatYatra — Travel India. Experience Local.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Playfair+Display:ital,wght@0,500..800;1,600..700&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --green: #073d2b;
+    --green2: #0d6045;
+    --green-light: #eaf4ef;
+    --orange: #e85d04;
+    --orange-soft: #fff3e6;
+    --cream: #fffaf0;
+    --light: #f5f7f4;
+    --dark: #15231d;
+    --gray: #66736d;
+    --border: #e3e8e4;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,.04);
+    --shadow-md: 0 10px 30px rgba(0,0,0,.08);
+}
+body { font-family: "DM Sans", sans-serif; color: var(--dark); background: #fbfdfc; }
+
+/* Switch Bar */
+.version-bar {
+    background: #092118; color: #d0e4d9; padding: 8px 3%; display: flex;
+    justify-content: space-between; align-items: center; font-size: 13px; border-bottom: 2px solid #e85d04;
+}
+.version-bar a {
+    background: #e85d04; color: white; text-decoration: none; padding: 5px 12px;
+    border-radius: 6px; font-weight: 700; font-size: 12px;
+}
+
+/* NAVBAR */
+.navbar {
+    height: 76px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3%; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.98);
+    position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px);
+}
+.nav-left { display: flex; align-items: center; gap: 28px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon-svg { width: 34px; height: 34px; }
+.logo-text { font-family: "Playfair Display", serif; font-size: 26px; font-weight: 700; color: var(--green); line-height: 1.1; }
+.logo-sub { font-size: 11px; color: var(--gray); font-weight: 500; }
+.nav-links { display: flex; gap: 18px; align-items: center; }
+.nav-links a {
+    text-decoration: none; color: #24332c; font-size: 13.5px; font-weight: 500;
+    display: flex; align-items: center; gap: 4px; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--orange); }
+.caret { font-size: 9px; color: #76847d; }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-search { position: relative; display: flex; align-items: center; }
+.nav-search input {
+    background: #f1f5f3; border: 1px solid #d9e2dd; border-radius: 20px;
+    padding: 8px 14px 8px 34px; font-size: 12.5px; width: 230px; outline: none; font-family: inherit;
+}
+.nav-search input:focus { border-color: var(--green); background: #fff; width: 260px; }
+.nav-search .search-icon { position: absolute; left: 12px; font-size: 12px; color: var(--gray); }
+.currency-btn {
+    display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600;
+    color: #2b3a32; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; cursor: pointer;
+}
+.currency-btn:hover { background: #f0f4f2; }
+.btn-login {
+    background: white; border: 1px solid #9ba9a2; padding: 8px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer; color: var(--dark);
+}
+.btn-signup {
+    background: var(--green); color: white; border: none; padding: 9px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+}
+
+/* 2-COLUMN MAIN LAYOUT */
+.page-container {
+    max-width: 1540px; margin: 0 auto; padding: 18px 3% 50px;
+    display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px;
+}
+.main-stream { display: flex; flex-direction: column; gap: 30px; }
+
+/* HERO */
+.hero {
+    min-height: 480px; position: relative; border-radius: 20px; overflow: hidden;
+    background: linear-gradient(90deg, rgba(255,250,240,.96) 0%, rgba(255,250,240,.82) 48%, rgba(0,0,0,.15) 100%),
+        url("https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1600&q=80") center/cover;
+    padding: 38px 42px 40px; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+}
+.hero-quote-box {
+    position: absolute; top: 22px; right: 28px; text-align: right;
+    color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,.6); max-width: 280px;
+}
+.hero-quote { font-family: "Caveat", cursive; font-size: 23px; line-height: 1.2; }
+.hero-author { font-size: 12px; font-weight: 600; margin-top: 4px; opacity: .9; }
+.hero-location {
+    position: absolute; bottom: 20px; right: 24px; background: rgba(0,0,0,.5);
+    color: white; padding: 5px 12px; border-radius: 20px; font-size: 11px; backdrop-filter: blur(4px);
+}
+.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.badge {
+    background: rgba(255,255,255,.9); border: 1px solid #dcdfdc; padding: 6px 12px;
+    border-radius: 20px; font-size: 12px; font-weight: 600; color: #203129;
+}
+.hero h1 {
+    font-family: "Playfair Display", serif; font-size: clamp(38px, 4.5vw, 56px);
+    line-height: 1.06; color: var(--green); margin-bottom: 10px;
+}
+.hero h1 span { color: var(--orange); }
+.hero-sub { font-size: 17px; color: #37473f; font-weight: 500; margin-bottom: 24px; }
+
+/* SEARCH CARD */
+.booking-card {
+    background: white; border-radius: 16px; padding: 12px 14px;
+    box-shadow: 0 12px 35px rgba(7,61,43,.12); border: 1px solid #e1e8e4;
+}
+.booking-tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.btab {
+    padding: 8px 14px; border: none; background: transparent; cursor: pointer;
+    font-size: 12.5px; font-weight: 600; color: #43534b; border-radius: 8px; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+}
+.btab.active { background: #fff2df; color: var(--green); font-weight: 700; }
+.booking-fields {
+    display: grid; grid-template-columns: 1.4fr 1fr .8fr auto; gap: 10px; margin-top: 12px;
+}
+.bfield {
+    border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; background: #fafcfb;
+}
+.bfield small { display: block; font-size: 10px; font-weight: 700; color: #76847e; letter-spacing: .5px; }
+.bfield input, .bfield select {
+    border: none; outline: none; width: 100%; margin-top: 4px; font-size: 13.5px;
+    font-weight: 500; background: transparent; font-family: inherit; color: var(--dark);
+}
+.btn-search {
+    border: none; background: var(--green); color: white; border-radius: 10px;
+    padding: 0 22px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex;
+    align-items: center; gap: 6px; transition: background 0.2s;
+}
+.btn-search:hover { background: var(--green2); }
+.popular-strip { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 10px; font-size: 11.5px; }
+.popular-strip span.lbl { color: var(--gray); font-weight: 600; }
+.chip-pill {
+    background: #f0f4f2; padding: 4px 10px; border-radius: 20px; color: #2e3e36;
+    font-size: 11px; cursor: pointer; transition: all 0.2s;
+}
+.chip-pill:hover { background: #e0ede6; color: var(--green); }
+
+/* 7-FEATURE BAR */
+.feature-bar {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; padding: 10px 0 16px;
+    border-bottom: 1px solid var(--border); text-align: center;
+}
+.f-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.f-icon {
+    width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 20px; font-weight: 700; color: white; box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+.f-icon.ai { background: linear-gradient(135deg, #f97316, #ea580c); }
+.f-icon.price { background: linear-gradient(135deg, #10b981, #059669); }
+.f-icon.local { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.f-icon.food { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.f-icon.culture { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.f-icon.flex { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+.f-icon.impact { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.f-item h4 { font-size: 12.5px; font-weight: 700; color: var(--dark); line-height: 1.25; }
+.f-item p { font-size: 11px; color: var(--gray); line-height: 1.3; }
+
+/* SECTIONS & CAROUSELS */
+.c-section { position: relative; }
+.c-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px; }
+.c-header h3 { font-family: "Playfair Display", serif; font-size: 26px; color: var(--green); }
+.c-header p { font-size: 13px; color: var(--gray); margin-top: 2px; }
+.c-view-all { font-size: 13px; font-weight: 700; color: var(--green); text-decoration: none; cursor: pointer; }
+.carousel-wrapper { position: relative; }
+.carousel-track {
+    display: flex; gap: 14px; overflow-x: auto; scroll-behavior: smooth;
+    scrollbar-width: none; padding: 4px 2px 14px;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.c-arrow {
+    position: absolute; top: 46%; transform: translateY(-50%); width: 34px; height: 34px;
+    background: white; border: 1px solid var(--border); border-radius: 50%; display: grid;
+    place-items: center; cursor: pointer; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    font-size: 14px; color: var(--dark); font-weight: bold; transition: all 0.2s;
+}
+.c-arrow:hover { background: var(--green); color: white; }
+.c-arrow.prev { left: -14px; }
+.c-arrow.next { right: -14px; }
+
+/* REGION CARDS */
+.reg-card {
+    min-width: 170px; height: 210px; border-radius: 14px; overflow: hidden; position: relative;
+    background-size: cover; background-position: center; flex-shrink: 0; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06); transition: transform 0.25s ease;
+}
+.reg-card:hover { transform: translateY(-4px); }
+.reg-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,.85)); }
+.reg-info { position: absolute; bottom: 12px; left: 12px; z-index: 2; color: white; }
+.reg-info h4 { font-size: 15px; font-weight: 700; }
+.reg-info p { font-size: 10.5px; opacity: .88; margin-top: 2px; }
+
+/* TRIP CARDS */
+.trip-item {
+    min-width: 255px; max-width: 255px; border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; background: white; flex-shrink: 0; box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.trip-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.trip-img { height: 140px; background-size: cover; background-position: center; position: relative; }
+.btn-heart {
+    position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(0,0,0,.45); color: white; border: none; cursor: pointer; display: grid;
+    place-items: center; font-size: 13px; backdrop-filter: blur(4px); transition: all 0.2s;
+}
+.btn-heart.active { background: white; color: #e11d48; }
+.trip-details { padding: 12px 14px; }
+.trip-details h4 { font-size: 15px; font-weight: 700; color: var(--dark); }
+.trip-meta { font-size: 11px; color: var(--gray); margin: 4px 0 8px; }
+.trip-tag-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.trip-tag { font-size: 9.5px; padding: 3px 6px; background: #f0f3f1; border-radius: 6px; color: #3e4f46; }
+.btn-trip-action {
+    width: 100%; padding: 8px 0; background: white; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--dark); cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-trip-action:hover { background: var(--green); color: white; border-color: var(--green); }
+
+/* ================= RIGHT SIDEBAR ================= */
+.sidebar { display: flex; flex-direction: column; gap: 18px; }
+.side-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 18px; box-shadow: var(--shadow-sm);
+}
+
+/* 1. Ask Yatra AI Card */
+.ai-copilot-card { border-top: 3px solid var(--green); }
+.ai-cp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.ai-cp-avatar {
+    width: 40px; height: 40px; border-radius: 50%; background: #eaf4ef;
+    display: grid; place-items: center; font-size: 22px; border: 2px solid #b8dfcb;
+}
+.ai-cp-title { font-size: 16px; font-weight: 700; color: var(--dark); }
+.ai-cp-sub { font-size: 11px; color: var(--gray); }
+.ai-cp-msg {
+    background: #f4f8f6; padding: 12px; border-radius: 12px; font-size: 12px;
+    color: #26362e; line-height: 1.45; margin-bottom: 12px; border: 1px solid #e1ede6;
+}
+.ai-prompts-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.ai-p-chip {
+    padding: 8px 12px; background: white; border: 1px solid #d4dfd9; border-radius: 10px;
+    font-size: 11.5px; color: #23342b; cursor: pointer; transition: all 0.2s; text-align: left;
+}
+.ai-p-chip:hover { border-color: var(--green); background: #f6faf8; color: var(--green); font-weight: 600; }
+.ai-chat-input-box {
+    display: flex; align-items: center; gap: 8px; border: 1px solid #d4dfd9;
+    border-radius: 20px; padding: 6px 12px; background: #fafcfb;
+}
+.ai-chat-input-box input {
+    border: none; outline: none; background: transparent; font-size: 12px;
+    flex: 1; font-family: inherit;
+}
+.ai-attach-btn { background: none; border: none; font-size: 14px; color: var(--gray); cursor: pointer; }
+.ai-send-btn {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--green);
+    color: white; border: none; cursor: pointer; display: grid; place-items: center; font-size: 11px;
+}
+
+/* 2. Your Trip. Your Way Card */
+.trip-way-card { background: #fdfefe; }
+.tw-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.tw-icon { font-size: 20px; color: var(--green); }
+.tw-title { font-size: 15px; font-weight: 700; color: var(--dark); }
+.tw-sub { font-size: 11px; color: var(--gray); }
+.tw-route-illus {
+    width: 100%; height: 60px; margin: 8px 0 12px; display: flex; align-items: center;
+    justify-content: center; background: #f7faf8; border-radius: 10px;
+}
+.tw-checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; margin-bottom: 14px; }
+.tw-checklist li { display: flex; align-items: center; gap: 8px; color: #32443a; }
+.tw-checklist li span.check { color: #16a34a; font-weight: bold; }
+.btn-customise-all {
+    width: 100%; padding: 10px; background: var(--green); color: white; border: none;
+    border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s;
+}
+.btn-customise-all:hover { background: var(--green2); }
+
+/* 3. Travel Local Support Local Card */
+.local-support-card { display: flex; gap: 12px; align-items: center; }
+.ls-left { flex: 1; }
+.ls-badge { font-size: 18px; margin-bottom: 4px; }
+.ls-title { font-size: 13.5px; font-weight: 700; color: var(--dark); line-height: 1.25; }
+.ls-desc { font-size: 10.5px; color: var(--gray); margin: 5px 0 8px; line-height: 1.35; }
+.ls-btn {
+    font-size: 11px; font-weight: 700; color: var(--dark); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 6px; background: white; cursor: pointer; text-decoration: none;
+}
+.ls-photo {
+    width: 78px; height: 86px; border-radius: 10px; background-size: cover;
+    background-position: center; flex-shrink: 0;
+}
+
+/* BOTTOM CULTURAL TRUST RIBBON */
+.trust-ribbon {
+    border-top: 1px solid var(--border); background: white; padding: 18px 4%;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    margin-top: 20px;
+}
+.tr-brand { font-family: "Caveat", cursive; font-size: 28px; font-weight: 700; color: #142e22; }
+.tr-pillars { display: flex; gap: 20px; flex-wrap: wrap; }
+.tr-pil { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #37493f; }
+.tr-tagline { display: flex; align-items: center; gap: 10px; font-family: "Caveat", cursive; font-size: 22px; font-weight: 700; color: #0a261a; }
+.tricolor-wave { width: 42px; height: 16px; }
+
+/* RESPONSIVENESS */
+@media (max-width: 1150px) {
+    .page-container { grid-template-columns: 1fr; }
+    .feature-bar { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+    .nav-links, .nav-search { display: none; }
+    .feature-bar { grid-template-columns: repeat(2, 1fr); }
+    .booking-fields { grid-template-columns: 1fr; }
+    .trust-ribbon { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="version-bar">
+    <span>✨ <strong>Portal Mode</strong>: 100% Image-Accurate 2-Column Portal layout with AI Copilot</span>
+    <a href="index.html">← Back to Original Code Mode</a>
+</div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="#" class="logo">
+            <svg class="logo-icon-svg" viewBox="0 0 100 100">
+                <path d="M10,35 Q50,10 90,35 Q50,60 10,35" fill="#FF9933"/>
+                <path d="M10,48 Q50,23 90,48 Q50,73 10,48" fill="#FFFFFF" stroke="#000080" stroke-width="0.5"/>
+                <circle cx="50" cy="48" r="8" fill="none" stroke="#000080" stroke-width="1.5"/>
+                <path d="M10,61 Q50,36 90,61 Q50,86 10,61" fill="#138808"/>
+            </svg>
+            <div>
+                <div class="logo-text">BharatYatra</div>
+                <div class="logo-sub">Travel India. Experience Local.</div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="#">Explore India <span class="caret">▼</span></a>
+            <a href="#">Plan with AI</a>
+            <a href="#">Book Tickets <span class="caret">▼</span></a>
+            <a href="#">Local Experiences <span class="caret">▼</span></a>
+            <a href="#">For Locals <span class="caret">▼</span></a>
+            <a href="#">About <span class="caret">▼</span></a>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search destinations, experiences...">
+        </div>
+        <div class="currency-btn">
+            <span>🌐 INR</span>
+            <span class="caret">▼</span>
+        </div>
+        <button class="btn-login" onclick="alert('Login dialog')">Login</button>
+        <button class="btn-signup" onclick="alert('Sign up dialog')">Sign Up</button>
+    </div>
+</nav>
+
+<!-- ================= MAIN CONTAINER ================= -->
+<div class="page-container">
+
+    <!-- LEFT MAIN STREAM -->
+    <main class="main-stream">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-quote-box">
+                <div class="hero-quote">“India is not just to be seen, but to be lived.”</div>
+                <div class="hero-author">— BharatYatra</div>
+            </div>
+            <div class="hero-location">📍 Rajgad Fort, Maharashtra</div>
+
+            <div class="hero-badges">
+                <div class="badge">👥 Real People</div>
+                <div class="badge">📍 Real Places</div>
+                <div class="badge">📖 Real Stories</div>
+                <div class="badge">🌱 Real Impact</div>
+            </div>
+
+            <h1>Not Just a Destination.<br>A <span>Deeper Connection.</span></h1>
+            <p class="hero-sub">Plan. Book. Explore. Experience Local.</p>
+
+            <!-- FLOATING BOOKING CARD -->
+            <div class="booking-card">
+                <div class="booking-tabs">
+                    <button class="btab active">✨ Plan with AI</button>
+                    <button class="btab">✈️ Flights</button>
+                    <button class="btab">🚆 Trains</button>
+                    <button class="btab">🚌 Buses</button>
+                    <button class="btab">🏨 Hotels</button>
+                    <button class="btab">🚗 Local Transport</button>
+                    <button class="btab">🍴 Food & Dining</button>
+                    <button class="btab">🔭 Experiences</button>
+                </div>
+
+                <div class="booking-fields">
+                    <div class="bfield">
+                        <small>WHERE DO YOU WANT TO GO?</small>
+                        <input id="heroDestInput" placeholder="Where do you want to go?">
+                    </div>
+                    <div class="bfield">
+                        <small>TRAVEL DATES</small>
+                        <input type="text" onfocus="(this.type='date')" placeholder="Select dates">
+                    </div>
+                    <div class="bfield">
+                        <small>TRAVELLERS</small>
+                        <select>
+                            <option>1 Traveller</option>
+                            <option>2 Travellers</option>
+                            <option>3 Travellers</option>
+                            <option>4+ Travellers</option>
+                        </select>
+                    </div>
+                    <button class="btn-search" onclick="triggerAICustomPlan()">
+                        Get Custom Plan ✨
+                    </button>
+                </div>
+
+                <div class="popular-strip">
+                    <span class="lbl">Popular Trips:</span>
+                    <span class="chip-pill" onclick="selectChip('Maharashtra Explorer')">Maharashtra Explorer</span>
+                    <span class="chip-pill" onclick="selectChip('Spiritual India')">Spiritual India</span>
+                    <span class="chip-pill" onclick="selectChip('North India Heritage')">North India Heritage</span>
+                    <span class="chip-pill" onclick="selectChip('South India Culture')">South India Culture</span>
+                    <span class="chip-pill" onclick="selectChip('Coastal Getaway')">Coastal Getaway</span>
+                    <span class="chip-pill" onclick="selectChip('Wildlife Trails')">Wildlife Trails</span>
+                    <span class="chip-pill" onclick="selectChip('Buddhist Circuit')">Buddhist Circuit</span>
+                    <span class="chip-pill" onclick="selectChip('Custom Trip')">Custom Trip</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7-FEATURE VALUE PROPOSITION BAR -->
+        <section class="feature-bar">
+            <div class="f-item">
+                <div class="f-icon ai">✨</div>
+                <h4>AI-Powered<br>Travel Planning</h4>
+                <p>Get personalised itineraries in seconds</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon price">₹</div>
+                <h4>Best Prices<br>& Verified Bookings</h4>
+                <p>Flights, trains, buses, hotels and more</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon local">👥</div>
+                <h4>Connect with<br>Locals</h4>
+                <p>Guides, drivers, home-stays, artisans and businesses</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon food">🍴</div>
+                <h4>Authentic Food<br>Experiences</h4>
+                <p>Taste the real India</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon culture">🏛️</div>
+                <h4>Explore Culture<br>& Heritage</h4>
+                <p>Temples, forts, festivals and hidden gems</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon flex">⚙️</div>
+                <h4>Flexible &<br>Customisable</h4>
+                <p>Your trip, your rules. Change anytime.</p>
+            </div>
+            <div class="f-item">
+                <div class="f-icon impact">🌿</div>
+                <h4>Positive<br>Impact</h4>
+                <p>More travel, More opportunities for local communities.</p>
+            </div>
+        </section>
+
+        <!-- EXPLORE INDIA BY REGION CAROUSEL -->
+        <section class="c-section">
+            <div class="c-header">
+                <div>
+                    <h3>Explore India by Region</h3>
+                    <p>Discover unique destinations, plan custom trips, and experience the real India.</p>
+                </div>
+                <a class="c-view-all">View All Regions →</a>
+            </div>
+            <div class="carousel-wrapper">
+                <button class="c-arrow prev" onclick="scrollCarousel('regTrack', -260)">⟨</button>
+                <div class="carousel-track" id="regTrack">
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('Maharashtra')">
+                        <div class="reg-info"><h4>Maharashtra</h4><p>Forts, Food, Culture, Coast</p></div>
+                    </div>
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('Rajasthan')">
+                        <div class="reg-info"><h4>Rajasthan</h4><p>Palaces, Desert, Heritage</p></div>
+                    </div>
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('Kerala')">
+                        <div class="reg-info"><h4>Kerala</h4><p>Backwaters, Hills, Nature</p></div>
+                    </div>
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('Uttarakhand')">
+                        <div class="reg-info"><h4>Uttarakhand</h4><p>Mountains, Temples, Adventure</p></div>
+                    </div>
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1600100397608-f0105a5b7f9c?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('Tamil Nadu')">
+                        <div class="reg-info"><h4>Tamil Nadu</h4><p>Temples, Tradition, Coast</p></div>
+                    </div>
+                    <div class="reg-card" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80')" onclick="selectChip('North East')">
+                        <div class="reg-info"><h4>North East</h4><p>Nature, Tribes, Serenity</p></div>
+                    </div>
+                </div>
+                <button class="c-arrow next" onclick="scrollCarousel('regTrack', 260)">⟩</button>
+            </div>
+        </section>
+
+        <!-- POPULAR CUSTOMISABLE TRIPS CAROUSEL -->
+        <section class="c-section">
+            <div class="c-header">
+                <div>
+                    <h3>Popular Customisable Trips</h3>
+                    <p>Use these as a starting point and edit them the way you want.</p>
+                </div>
+                <a class="c-view-all">View All Trips →</a>
+            </div>
+            <div class="carousel-wrapper">
+                <button class="c-arrow prev" onclick="scrollCarousel('tripTrack', -280)">⟨</button>
+                <div class="carousel-track" id="tripTrack">
+
+                    <!-- Trip 1 -->
+                    <div class="trip-item">
+                        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=700&q=80')">
+                            <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+                        </div>
+                        <div class="trip-details">
+                            <h4>Maharashtra Explorer</h4>
+                            <div class="trip-meta">7 Days • Mumbai, Pune, Nashik, Konkan</div>
+                            <div class="trip-tag-row">
+                                <span class="trip-tag">Culture</span>
+                                <span class="trip-tag">Food</span>
+                                <span class="trip-tag">Nature</span>
+                                <span class="trip-tag">Customisable</span>
+                            </div>
+                            <button class="btn-trip-action" onclick="askAICustomTrip('Maharashtra Explorer')">View & Customise</button>
+                        </div>
+                    </div>
+
+                    <!-- Trip 2 -->
+                    <div class="trip-item">
+                        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=700&q=80')">
+                            <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+                        </div>
+                        <div class="trip-details">
+                            <h4>Spiritual India</h4>
+                            <div class="trip-meta">10 Days • Varanasi, Gaya, Ayodhya, Ujjain</div>
+                            <div class="trip-tag-row">
+                                <span class="trip-tag">Temples</span>
+                                <span class="trip-tag">Culture</span>
+                                <span class="trip-tag">Spiritual</span>
+                                <span class="trip-tag">Customisable</span>
+                            </div>
+                            <button class="btn-trip-action" onclick="askAICustomTrip('Spiritual India')">View & Customise</button>
+                        </div>
+                    </div>
+
+                    <!-- Trip 3 -->
+                    <div class="trip-item">
+                        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80')">
+                            <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+                        </div>
+                        <div class="trip-details">
+                            <h4>Himalayan Escape</h4>
+                            <div class="trip-meta">8 Days • Rishikesh, Auli, Jim Corbett</div>
+                            <div class="trip-tag-row">
+                                <span class="trip-tag">Adventure</span>
+                                <span class="trip-tag">Nature</span>
+                                <span class="trip-tag">Wellness</span>
+                                <span class="trip-tag">Customisable</span>
+                            </div>
+                            <button class="btn-trip-action" onclick="askAICustomTrip('Himalayan Escape')">View & Customise</button>
+                        </div>
+                    </div>
+
+                    <!-- Trip 4 -->
+                    <div class="trip-item">
+                        <div class="trip-img" style="background-image:url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=700&q=80')">
+                            <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+                        </div>
+                        <div class="trip-details">
+                            <h4>South India Highlights</h4>
+                            <div class="trip-meta">10 Days • Kerala, Tamil Nadu, Karnataka</div>
+                            <div class="trip-tag-row">
+                                <span class="trip-tag">Culture</span>
+                                <span class="trip-tag">Beaches</span>
+                                <span class="trip-tag">Heritage</span>
+                                <span class="trip-tag">Customisable</span>
+                            </div>
+                            <button class="btn-trip-action" onclick="askAICustomTrip('South India Highlights')">View & Customise</button>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="c-arrow next" onclick="scrollCarousel('tripTrack', 280)">⟩</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar">
+
+        <!-- 1. ASK YATRA AI WIDGET -->
+        <div class="side-card ai-copilot-card">
+            <div class="ai-cp-head">
+                <div class="ai-cp-avatar">🤖</div>
+                <div>
+                    <div class="ai-cp-title">Ask Yatra AI</div>
+                    <div class="ai-cp-sub">Your personal travel planner for India</div>
+                </div>
+            </div>
+
+            <div class="ai-cp-msg" id="aiChatBubble">
+                Hi! I'm Yatra AI. Tell me what kind of trip you're looking for, and I'll create a completely customised plan — with routes, tickets, stays, local experiences and more.
+            </div>
+
+            <div class="ai-prompts-list">
+                <button class="ai-p-chip" onclick="handlePromptClick('Plan a 7-day Maharashtra trip')">
+                    Plan a 7-day Maharashtra trip
+                </button>
+                <button class="ai-p-chip" onclick="handlePromptClick('Suggest a budget trip from Mumbai to Northeast')">
+                    Suggest a budget trip from Mumbai to Northeast
+                </button>
+                <button class="ai-p-chip" onclick="handlePromptClick('I want to explore temples, food and culture')">
+                    I want to explore temples, food and culture
+                </button>
+                <button class="ai-p-chip" onclick="handlePromptClick('Create a family-friendly itinerary')">
+                    Create a family-friendly itinerary
+                </button>
+            </div>
+
+            <div class="ai-chat-input-box">
+                <button class="ai-attach-btn" title="Attach details">📎</button>
+                <input id="aiChatInput" placeholder="Type your travel plan here..." onkeydown="if(event.key==='Enter') sendAIChat()">
+                <button class="ai-send-btn" onclick="sendAIChat()">➤</button>
+            </div>
+        </div>
+
+        <!-- 2. YOUR TRIP YOUR WAY CARD -->
+        <div class="side-card trip-way-card">
+            <div class="tw-head">
+                <div class="tw-icon">⚙️</div>
+                <div>
+                    <div class="tw-title">Your Trip. Your Way.</div>
+                    <div class="tw-sub">Fully Customisable Itineraries</div>
+                </div>
+            </div>
+
+            <div class="tw-route-illus">
+                <svg width="220" height="40" viewBox="0 0 220 40">
+                    <circle cx="20" cy="20" r="6" fill="#073d2b"/>
+                    <line x1="26" y1="20" x2="80" y2="20" stroke="#073d2b" stroke-width="2" stroke-dasharray="4,4"/>
+                    <circle cx="80" cy="20" r="5" fill="#e85d04"/>
+                    <line x1="85" y1="20" x2="140" y2="20" stroke="#073d2b" stroke-width="2" stroke-dasharray="4,4"/>
+                    <circle cx="140" cy="20" r="5" fill="#073d2b"/>
+                    <line x1="145" y1="20" x2="195" y2="20" stroke="#e85d04" stroke-width="2" stroke-dasharray="4,4"/>
+                    <circle cx="195" cy="20" r="7" fill="#e85d04"/>
+                </svg>
+            </div>
+
+            <ul class="tw-checklist">
+                <li><span class="check">✔</span> Add or remove destinations</li>
+                <li><span class="check">✔</span> Adjust travel dates</li>
+                <li><span class="check">✔</span> Choose your budget</li>
+                <li><span class="check">✔</span> Pick your stay type (hotel / homestay / hostel)</li>
+                <li><span class="check">✔</span> Include local experiences</li>
+                <li><span class="check">✔</span> Change transport mode</li>
+                <li><span class="check">✔</span> Get multiple route options</li>
+                <li><span class="check">✔</span> Edit with AI anytime</li>
+            </ul>
+
+            <button class="btn-customise-all" onclick="alert('Launching Itinerary Customizer...')">
+                Start Customising →
+            </button>
+        </div>
+
+        <!-- 3. TRAVEL LOCAL SUPPORT LOCAL CARD -->
+        <div class="side-card local-support-card">
+            <div class="ls-left">
+                <div class="ls-badge">🤝</div>
+                <div class="ls-title">Travel Local. Support Local.</div>
+                <div class="ls-desc">Every booking helps local communities grow and creates real opportunities.</div>
+                <a class="ls-btn" onclick="alert('Viewing local partner stories and initiatives')">Know More →</a>
+            </div>
+            <div class="ls-photo" style="background-image:url('https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=350&q=80')"></div>
+        </div>
+
+    </aside>
+
+</div>
+
+<!-- ================= BOTTOM CULTURAL TRUST RIBBON ================= -->
+<div class="trust-ribbon">
+    <div class="tr-brand">Incredible India</div>
+    <div class="tr-pillars">
+        <div class="tr-pil">🌿 Sustainable Travel</div>
+        <div class="tr-pil">👥 Local Communities</div>
+        <div class="tr-pil">🤍 Authentic Experiences</div>
+        <div class="tr-pil">⛰️ A Stronger Tomorrow</div>
+    </div>
+    <div class="tr-tagline">
+        <span>Dekho. Jaano. Judo. India Apna Hai.</span>
+        <svg class="tricolor-wave" viewBox="0 0 100 35">
+            <path d="M0,10 Q50,0 100,10 L100,16 Q50,6 0,16 Z" fill="#FF9933"/>
+            <path d="M0,16 Q50,6 100,16 L100,22 Q50,12 0,22 Z" fill="#FFFFFF" stroke="#c0c0c0" stroke-width="0.3"/>
+            <path d="M0,22 Q50,12 100,22 L100,28 Q50,18 0,28 Z" fill="#138808"/>
+        </svg>
+    </div>
+</div>
+
+<script>
+function scrollCarousel(id, offset) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+}
+
+function toggleHeart(btn) {
+    if (btn.innerText === '♡') {
+        btn.innerText = '❤';
+        btn.classList.add('active');
+    } else {
+        btn.innerText = '♡';
+        btn.classList.remove('active');
+    }
+}
+
+function selectChip(name) {
+    document.getElementById('heroDestInput').value = name;
+    askAICustomTrip(name);
+}
+
+function triggerAICustomPlan() {
+    const dest = document.getElementById('heroDestInput').value || 'Maharashtra';
+    askAICustomTrip(dest);
+}
+
+function askAICustomTrip(destination) {
+    const bubble = document.getElementById('aiChatBubble');
+    bubble.innerHTML = `✨ <strong>Generating Custom Plan for ${destination}...</strong><br><br>
+    I've tailored a custom journey featuring verified local homestays, private transport options, and regional food trails.<br><br>
+    ✔ <strong>Route:</strong> 3 Curated Options Ready<br>
+    ✔ <strong>Local Guide:</strong> 4 Verified Guides Assigned<br>
+    ✔ <strong>Status:</strong> Ready for customisation!`;
+    document.getElementById('aiChatBubble').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function handlePromptClick(promptText) {
+    const bubble = document.getElementById('aiChatBubble');
+    bubble.innerHTML = `💬 <em>"${promptText}"</em><br><br>
+    ✨ <strong>Yatra AI Recommendation:</strong><br>
+    We have crafted an optimal route with scenic rail journeys, top-rated local eateries, and heritage stops. Click <strong>Start Customising</strong> to fine-tune your itinerary!`;
+}
+
+function sendAIChat() {
+    const input = document.getElementById('aiChatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    handlePromptClick(text);
+}
+
+document.querySelectorAll('.btab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.btab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>

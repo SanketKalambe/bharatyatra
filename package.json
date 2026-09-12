@@ -1,0 +1,27 @@
+{
+  "name": "bharatyatra",
+  "version": "1.0.0",
+  "description": "Travel India. Experience Local. Official Government Tourism Integration & Modern Travel Portal.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed_gov.js",
+    "test": "node test_suite.py"
+  },
+  "keywords": [
+    "india-tourism",
+    "bharatyatra",
+    "dekho-apna-desh",
+    "irctc",
+    "asi",
+    "ondc",
+    "travel"
+  ],
+  "author": "Sanket Kalambe",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
