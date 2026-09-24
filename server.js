@@ -27,8 +27,19 @@ app.use((req, res, next) => {
   next();
 });
 
+const fs = require("fs");
+
 // Serve static frontend assets
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname)));
+
+app.get("/", (req, res) => {
+  const pubPath = path.join(__dirname, "public", "index.html");
+  if (fs.existsSync(pubPath)) {
+    return res.sendFile(pubPath);
+  }
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 // ================= API ENDPOINTS =================
 
