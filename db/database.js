@@ -1,12 +1,31 @@
 // db/database.js
-const { DatabaseSync } = require("node:sqlite");
 const path = require("path");
+const fs = require("fs");
 
-const dbPath = path.join(__dirname, "..", "bharatyatra.db");
+let dbPath = path.join(__dirname, "..", "bharatyatra.db");
+
+// In serverless environments like Vercel, copy the SQLite db to /tmp for write access
+if (process.env.VERCEL) {
+  try {
+    const tmpDbPath = path.join("/tmp", "bharatyatra.db");
+    if (!fs.existsSync(tmpDbPath) && fs.existsSync(dbPath)) {
+      fs.copyFileSync(dbPath, tmpDbPath);
+    }
+    if (fs.existsSync(tmpDbPath)) {
+      dbPath = tmpDbPath;
+    }
+  } catch (e) {
+    console.warn("Could not copy database to /tmp:", e.message);
+  }
+}
+
+const { DatabaseSync } = require("node:sqlite");
 const db = new DatabaseSync(dbPath);
 
 // Enable WAL mode for performance
-db.exec("PRAGMA journal_mode = WAL;");
+try {
+  db.exec("PRAGMA journal_mode = WAL;");
+} catch (e) {}
 
 // Initialize Schema
 function initSchema() {

@@ -4,6 +4,13 @@ const cors = require("cors");
 const path = require("path");
 const { db } = require("./db/database.js");
 
+// Ensure government initiatives and monuments tables are initialized
+try {
+  require("./db/seed_gov.js");
+} catch (e) {
+  console.warn("Gov tables notice:", e.message);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,6 +18,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Normalize URL prefix for Vercel serverless routing
+app.use((req, res, next) => {
+  if (!req.url.startsWith("/api") && req.url !== "/" && !req.url.includes(".")) {
+    req.url = "/api" + (req.url.startsWith("/") ? req.url : "/" + req.url);
+  }
+  next();
+});
 
 // Serve static frontend assets
 app.use(express.static(path.join(__dirname)));
@@ -482,7 +497,12 @@ app.post("/api/gov/pledge", (req, res) => {
   }
 });
 
-// Start Express Server
-app.listen(PORT, "127.0.0.1", () => {
-  console.log(`BharatYatra Express API & Server is LIVE on http://127.0.0.1:${PORT}`);
-});
+// Export app for Vercel serverless deployment
+module.exports = app;
+
+// Start Express Server locally
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`BharatYatra Express API & Server is LIVE on http://127.0.0.1:${PORT}`);
+  });
+}
