@@ -1561,21 +1561,767 @@ body {
     opacity: 1;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 1180px) {
-    .main-wrapper { grid-template-columns: 1fr; }
-    .features-strip { grid-template-columns: repeat(4, 1fr); }
-    .search-input-container { width: 220px; }
-    .search-input-container.is-focused,
-    .search-input-container:focus-within { width: 270px; }
-    .search-dropdown-menu { width: 360px; }
+/* ===================================================
+   RESPONSIVE DESIGN: TABLET & MOBILE SYSTEM
+   =================================================== */
+
+/* Mobile Hamburger & Search Buttons (Hidden on desktop) */
+.btn-mobile-menu,
+.btn-mobile-search {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--dark);
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
 
+.btn-mobile-menu:hover,
+.btn-mobile-search:hover {
+    background: #f0f4f2;
+}
+
+.btn-mobile-menu .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin: 4px auto;
+    background: var(--dark);
+    transition: all 0.25s ease-in-out;
+    border-radius: 2px;
+}
+
+.btn-mobile-menu.active .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.btn-mobile-menu.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.btn-mobile-menu.active .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile Drawer Overlay & Container */
+.mobile-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 25, 18, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(340px, 86vw);
+    background: #ffffff;
+    z-index: 10001;
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.25);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.mobile-drawer.open {
+    transform: translateX(0);
+}
+
+.mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.mobile-drawer-close {
+    background: #f1f6f3;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #3e5247;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.mobile-drawer-auth {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #eef3f0;
+    background: #fafcfb;
+}
+
+.mobile-drawer-content {
+    flex: 1;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-drawer-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.mobile-drawer-link:hover {
+    background: #f0f7f3;
+    color: var(--green);
+}
+
+.mobile-drawer-link.govt-highlight {
+    background: #eaf6ef;
+    color: #0b7a48;
+    border: 1px solid #bce6cf;
+}
+
+.badge-official {
+    background: #0d6045;
+    color: white;
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.mobile-drawer-section-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #7b8e84;
+    text-transform: uppercase;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    padding-left: 4px;
+}
+
+.mobile-drawer-sublinks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mobile-drawer-sublinks a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: #273b32;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.mobile-drawer-sublinks a:hover {
+    background: #f3f7f5;
+    color: var(--green);
+}
+
+.mobile-drawer-footer {
+    padding: 16px 20px 24px;
+    background: #f8faf9;
+    border-top: 1px solid var(--border);
+}
+
+.mobile-curr-chip {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid #d4dfd9;
+    border-radius: 8px;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mobile-curr-chip:hover, .mobile-curr-chip:active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+/* Mobile Search Expandable Row */
+.mobile-search-bar-row {
+    display: none;
+    position: sticky;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    z-index: 990;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.mobile-search-bar-row.show {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+.mobile-search-inner {
+    display: flex;
+    align-items: center;
+    background: #f4f7f5;
+    border: 1px solid #dce4e0;
+    border-radius: 30px;
+    padding: 0 12px;
+    height: 40px;
+}
+
+.mobile-search-inner input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--dark);
+    padding-left: 8px;
+}
+
+.mobile-search-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #66786e;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.mobile-search-results {
+    max-height: 280px;
+    overflow-y: auto;
+    margin-top: 8px;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.mobile-search-item {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f2f6f4;
+    cursor: pointer;
+    font-size: 12.5px;
+}
+
+.mobile-search-item:hover {
+    background: #f4f8f6;
+}
+
+/* ===================================================
+   BREAKPOINT 1: TABLET (max-width: 1024px)
+   =================================================== */
+@media (max-width: 1024px) {
+    .navbar {
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .nav-left {
+        gap: 18px;
+    }
+
+    .nav-menu {
+        gap: 12px;
+    }
+
+    .nav-item {
+        font-size: 12.5px;
+    }
+
+    .logo-title {
+        font-size: 23px;
+    }
+
+    .search-input-container {
+        width: 190px;
+        height: 38px;
+    }
+
+    .search-input-container.is-focused,
+    .search-input-container:focus-within {
+        width: 250px;
+    }
+
+    .search-kbd-badge {
+        display: none;
+    }
+
+    .search-dropdown-menu {
+        width: 380px;
+    }
+
+    .main-wrapper {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+        gap: 28px;
+    }
+
+    .hero-card {
+        padding: 34px 24px 50px;
+    }
+
+    .hero-heading {
+        font-size: 34px;
+    }
+
+    .fields-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .features-strip {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 18px 16px;
+    }
+
+    .sidebar-column {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .widget-local-impact {
+        grid-column: span 2;
+    }
+}
+
+/* ===================================================
+   BREAKPOINT 2: MOBILE & SMALL TABLET (max-width: 768px)
+   =================================================== */
 @media (max-width: 768px) {
-    .nav-menu, .search-bar-wrap { display: none; }
-    .features-strip { grid-template-columns: repeat(2, 1fr); }
-    .fields-grid { grid-template-columns: 1fr; }
-    .bottom-trust-strip { flex-direction: column; align-items: flex-start; }
+    .navbar {
+        height: 64px;
+        padding: 0 14px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .search-bar-wrap {
+        display: none;
+    }
+
+    .btn-mobile-menu,
+    .btn-mobile-search {
+        display: inline-flex;
+    }
+
+    .logo-title {
+        font-size: 21px;
+    }
+
+    .logo-tagline {
+        font-size: 9px;
+    }
+
+    .nav-currency-btn {
+        padding: 6px 8px;
+        font-size: 11.5px;
+    }
+
+    #authButtonsWrap {
+        display: none !important;
+    }
+
+    /* Government Partnership Ribbon */
+    .gov-ribbon-strip {
+        padding: 9px 12px;
+    }
+
+    .gov-ribbon-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .gov-ribbon-tag {
+        font-size: 9.5px;
+        padding: 2px 6px;
+    }
+
+    .gov-ribbon-text {
+        font-size: 11px;
+        line-height: 1.35;
+    }
+
+    .gov-ribbon-cta {
+        font-size: 11px;
+        align-self: flex-start;
+    }
+
+    /* Hero Section */
+    .hero-card {
+        padding: 24px 14px 44px;
+        border-radius: 14px;
+    }
+
+    .hero-heading {
+        font-size: 26px;
+        line-height: 1.2;
+    }
+
+    .hero-heading span {
+        display: inline;
+    }
+
+    .hero-subtitle {
+        font-size: 12.5px;
+        margin-bottom: 16px;
+    }
+
+    .hero-badges-row {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 6px;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .hero-badges-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hero-pill-badge {
+        flex-shrink: 0;
+        font-size: 10.5px;
+        padding: 3px 9px;
+    }
+
+    /* Booking Form Tabs */
+    .booking-panel {
+        padding: 14px 12px;
+        border-radius: 14px;
+        margin-top: 14px;
+    }
+
+    .tabs-strip {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .tabs-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    .fields-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .input-block input,
+    .input-block select {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .btn-get-plan {
+        height: 46px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .popular-row {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 5px;
+        padding-top: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .popular-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chip-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 11px;
+        padding: 3px 9px;
+    }
+
+    /* Features Strip */
+    .features-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 14px 10px;
+        border-radius: 12px;
+    }
+
+    .feature-col {
+        padding: 10px 6px;
+        text-align: center;
+    }
+
+    .feature-bubble {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        margin: 0 auto 6px;
+    }
+
+    .feature-col h4 {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .feature-col p {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    /* Main Grid Wrapper */
+    .main-wrapper {
+        padding: 0 12px;
+        gap: 22px;
+        margin-top: 14px;
+    }
+
+    /* Shelves & Carousels */
+    .shelf-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .shelf-header h3 {
+        font-size: 19px;
+    }
+
+    .shelf-header p {
+        font-size: 12px;
+    }
+
+    .shelf-link {
+        font-size: 12px;
+    }
+
+    .nav-arrow-btn {
+        display: none !important;
+    }
+
+    .carousel-viewport {
+        gap: 12px;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+    }
+
+    .region-tile {
+        min-width: 220px;
+        width: 72vw;
+        max-width: 270px;
+        height: 240px;
+        scroll-snap-align: start;
+    }
+
+    .trip-budget-filter-bar {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 6px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .trip-budget-filter-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .budget-filter-pill {
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    .trip-card-box {
+        min-width: 260px;
+        width: 78vw;
+        max-width: 320px;
+        scroll-snap-align: start;
+    }
+
+    .trip-thumbnail {
+        height: 170px;
+    }
+
+    /* Sidebar Column on Mobile */
+    .sidebar-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .sidebar-widget {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .widget-local-impact {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .local-avatar-photo {
+        width: 100%;
+        height: 140px;
+        border-radius: 10px;
+    }
+
+    /* Bottom Trust Strip */
+    .bottom-trust-strip {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 16px;
+        gap: 14px;
+    }
+
+    .trust-pillars-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+    }
+
+    .cultural-tagline-wrap {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Modal Mobile Styles */
+    #appModal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    #appModal > div {
+        width: 100% !important;
+        max-height: 92vh !important;
+        border-radius: 20px 20px 0 0 !important;
+        padding: 22px 16px 30px !important;
+    }
+
+    #modalContentTarget [style*="grid-template-columns: 1fr 1fr"],
+    #modalContentTarget [style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+}
+
+/* ===================================================
+   BREAKPOINT 3: SMALL PHONES (max-width: 480px)
+   =================================================== */
+@media (max-width: 480px) {
+    .navbar {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .logo-title {
+        font-size: 19px;
+    }
+
+    .logo-tricolor {
+        width: 32px;
+        height: 32px;
+    }
+
+    .hero-card {
+        padding: 20px 12px 36px;
+    }
+
+    .hero-heading {
+        font-size: 22px;
+    }
+
+    .hero-location-badge {
+        font-size: 10.5px;
+        padding: 4px 8px;
+    }
+
+    .features-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .feature-col {
+        padding: 8px 4px;
+    }
+
+    .feature-bubble {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .feature-col h4 {
+        font-size: 11.5px;
+    }
+
+    .feature-col p {
+        display: none;
+    }
+
+    .trip-card-box {
+        min-width: 240px;
+        width: 82vw;
+    }
+
+    .trust-pillars-row {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -1721,8 +2467,122 @@ body {
             <span id="userNameDisplay">Traveller</span>
             <span id="wishCountBadge" style="background:var(--orange);color:white;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:4px;">0 ♡</span>
         </div>
+
+        <!-- Mobile Search Button -->
+        <button class="btn-mobile-search" onclick="toggleMobileSearchBar()" title="Search">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="btn-mobile-menu" id="btnMobileMenu" onclick="toggleMobileDrawer()" aria-label="Open mobile menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
     </div>
 </nav>
+
+<!-- ================= MOBILE DRAWER & SEARCH ROW ================= -->
+<div class="mobile-drawer-overlay" id="mobileDrawerOverlay" onclick="closeMobileDrawer()"></div>
+
+<aside class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+        <div class="logo-wrap" onclick="location.reload()">
+            <svg class="logo-tricolor" viewBox="0 0 100 80" style="width:30px;height:30px;">
+                <path d="M5,25 Q50,5 95,25 Q50,45 5,25" fill="#FF9933"/>
+                <path d="M5,38 Q50,18 95,38 Q50,58 5,38" fill="#FFFFFF" stroke="#c2ccc5" stroke-width="0.5"/>
+                <circle cx="50" cy="38" r="6" fill="none" stroke="#000080" stroke-width="1.2"/>
+                <path d="M5,51 Q50,31 95,51 Q50,71 5,51" fill="#138808"/>
+            </svg>
+            <div class="logo-title" style="font-size:20px;">BharatYatra</div>
+        </div>
+        <button class="mobile-drawer-close" onclick="closeMobileDrawer()">&times;</button>
+    </div>
+
+    <div class="mobile-drawer-auth" id="mobileDrawerAuth">
+        <button class="btn-nav-login" style="flex:1;" onclick="openAuthModal('login'); closeMobileDrawer();">Log In</button>
+        <button class="btn-nav-signup" style="flex:1;" onclick="openAuthModal('signup'); closeMobileDrawer();">Sign Up</button>
+    </div>
+
+    <div class="mobile-drawer-content">
+        <a class="mobile-drawer-link govt-highlight" onclick="openGovPortalModal(); closeMobileDrawer();">
+            <span>🏛️ Govt Initiatives</span>
+            <span class="badge-official">Official</span>
+        </a>
+
+        <a class="mobile-drawer-link" onclick="focusAIChat(); closeMobileDrawer();">
+            <span>✨ Plan with AI</span>
+            <span style="font-size:12px;color:var(--green);font-weight:bold;">Assistant &rarr;</span>
+        </a>
+
+        <div class="mobile-drawer-section-title">EXPLORE INDIA BY REGION</div>
+        <div class="mobile-drawer-sublinks">
+            <a onclick="filterByZone('West'); closeMobileDrawer();">🏖️ Western India (Maharashtra, Goa)</a>
+            <a onclick="filterByZone('North'); closeMobileDrawer();">⛰️ North India (Rajasthan, Uttarakhand)</a>
+            <a onclick="filterByZone('South'); closeMobileDrawer();">🏛️ South India (Kerala, Tamil Nadu)</a>
+            <a onclick="filterByZone('NE'); closeMobileDrawer();">🌿 North East (Assam, Meghalaya)</a>
+            <a onclick="filterByZone('Central'); closeMobileDrawer();">🤍 Spiritual Heartlands (Varanasi, Ujjain)</a>
+        </div>
+
+        <div class="mobile-drawer-section-title">BOOK TICKETS &amp; STAYS</div>
+        <div class="mobile-drawer-sublinks">
+            <a onclick="selectTabByName('Flights'); closeMobileDrawer();">✈️ Flights</a>
+            <a onclick="selectTabByName('Trains'); closeMobileDrawer();">🚆 IRCTC Trains</a>
+            <a onclick="selectTabByName('Buses'); closeMobileDrawer();">🚌 Intercity Buses</a>
+            <a onclick="selectTabByName('Hotels'); closeMobileDrawer();">🏨 Verified Stays &amp; Homestays</a>
+            <a onclick="selectTabByName('Local Transport'); closeMobileDrawer();">🚗 Local Cabs &amp; Autos (ONDC)</a>
+        </div>
+
+        <div class="mobile-drawer-section-title">LOCAL EXPERIENCES</div>
+        <div class="mobile-drawer-sublinks">
+            <a onclick="openExperiencesModal('Heritage Walks'); closeMobileDrawer();">🏛️ Guided Heritage Walks</a>
+            <a onclick="openExperiencesModal('Food Trails'); closeMobileDrawer();">🍴 Authentic Food Trails</a>
+            <a onclick="openExperiencesModal('Homestays'); closeMobileDrawer();">🏡 Ancestral Homestays</a>
+            <a onclick="openExperiencesModal('Artisans'); closeMobileDrawer();">🎨 Master Artisan Workshops</a>
+        </div>
+
+        <div class="mobile-drawer-section-title">FOR LOCALS &amp; PARTNERS</div>
+        <div class="mobile-drawer-sublinks">
+            <a onclick="openPartnerModal('Certified Tour Guide'); closeMobileDrawer();">🎤 Become a Certified Guide</a>
+            <a onclick="openPartnerModal('Homestay Host'); closeMobileDrawer();">🏡 Register Your Homestay</a>
+            <a onclick="openPartnerModal('Driver Partner'); closeMobileDrawer();">🚗 Drive with BharatYatra</a>
+            <a onclick="openPartnerModal('Artisan Partner'); closeMobileDrawer();">🧶 Showcase Local Crafts</a>
+        </div>
+
+        <div class="mobile-drawer-section-title">ABOUT BHARATYATRA</div>
+        <div class="mobile-drawer-sublinks">
+            <a onclick="openAboutModal('Mission'); closeMobileDrawer();">📖 Our Mission &amp; Story</a>
+            <a onclick="openAboutModal('Impact'); closeMobileDrawer();">🌱 Community Economic Impact</a>
+            <a onclick="openAboutModal('Sustainability'); closeMobileDrawer();">♻️ Sustainable Tourism Charter</a>
+        </div>
+    </div>
+
+    <div class="mobile-drawer-footer">
+        <div style="font-size:10.5px;font-weight:700;color:#708277;margin-bottom:8px;text-transform:uppercase;">CURRENCY</div>
+        <div style="display:flex;gap:6px;">
+            <button class="mobile-curr-chip" onclick="setCurrency('INR', '₹', 1); closeMobileDrawer();">🇮🇳 INR (₹)</button>
+            <button class="mobile-curr-chip" onclick="setCurrency('USD', '$', 85); closeMobileDrawer();">🇺🇸 USD ($)</button>
+            <button class="mobile-curr-chip" onclick="setCurrency('EUR', '€', 92); closeMobileDrawer();">🇪🇺 EUR (€)</button>
+            <button class="mobile-curr-chip" onclick="setCurrency('GBP', '£', 108); closeMobileDrawer();">🇬🇧 GBP (£)</button>
+        </div>
+    </div>
+</aside>
+
+<!-- Expandable Mobile Search Row -->
+<div class="mobile-search-bar-row" id="mobileSearchRow">
+    <div class="mobile-search-inner">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#6d7f75;flex-shrink:0;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="mobileSearchInput" placeholder="Search Maharashtra, Varanasi, Budget trips..." autocomplete="off" spellcheck="false" oninput="handleMobileSearchInput(this.value)" onkeydown="if(event.key==='Enter') executeMobileSearchSubmit()">
+        <button class="mobile-search-close-btn" onclick="toggleMobileSearchBar()">&times;</button>
+    </div>
+    <div class="mobile-search-results" id="mobileSearchResults"></div>
+</div>
 
 <!-- ================= GOVT INTEGRATION PARTNERSHIP RIBBON ================= -->
 <div class="gov-ribbon-strip" onclick="openGovPortalModal()">
@@ -3698,24 +4558,133 @@ function handleSearchKeydown(e) {
     }
 }
 
+/* ================= MOBILE NAVIGATION & SEARCH ================= */
+function toggleMobileDrawer() {
+    const drawer = document.getElementById("mobileDrawer");
+    const overlay = document.getElementById("mobileDrawerOverlay");
+    const btn = document.getElementById("btnMobileMenu");
+    if (!drawer) return;
+    const isOpen = drawer.classList.contains("open");
+    if (isOpen) {
+        closeMobileDrawer();
+    } else {
+        drawer.classList.add("open");
+        if (overlay) overlay.classList.add("show");
+        if (btn) btn.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closeMobileDrawer() {
+    const drawer = document.getElementById("mobileDrawer");
+    const overlay = document.getElementById("mobileDrawerOverlay");
+    const btn = document.getElementById("btnMobileMenu");
+    if (drawer) drawer.classList.remove("open");
+    if (overlay) overlay.classList.remove("show");
+    if (btn) btn.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+function toggleMobileSearchBar() {
+    const row = document.getElementById("mobileSearchRow");
+    if (!row) return;
+    const isShowing = row.classList.toggle("show");
+    if (isShowing) {
+        const inp = document.getElementById("mobileSearchInput");
+        if (inp) {
+            inp.focus();
+            handleMobileSearchInput(inp.value);
+        }
+    }
+}
+
+function handleMobileSearchInput(val) {
+    const container = document.getElementById("mobileSearchResults");
+    if (!container) return;
+    const q = (val || "").trim().toLowerCase();
+
+    // Synchronize global search so live page filtering happens
+    const globalInput = document.getElementById("globalSearchInput");
+    if (globalInput) {
+        globalInput.value = val;
+        handleGlobalSearch(val);
+    }
+
+    if (!q) {
+        container.innerHTML = `
+            <div style="padding:10px 14px 6px;font-size:11px;font-weight:700;color:#7c8e84;text-transform:uppercase;">Popular Searches</div>
+            <div class="mobile-search-item" onclick="selectMobileQuery('Sahyadri Forts')">🏰 Historic Forts &amp; Bastions</div>
+            <div class="mobile-search-item" onclick="selectMobileQuery('Backpacking')">🎒 Pocket-Friendly Backpacking (&le; ₹5,000)</div>
+            <div class="mobile-search-item" onclick="selectMobileQuery('Kerala')">🌴 Kerala Backwaters &amp; Houseboats</div>
+            <div class="mobile-search-item" onclick="selectMobileQuery('Varanasi')">🪷 Varanasi Ganga Aarti</div>
+        `;
+        return;
+    }
+
+    const matched = allTripsData.filter(t => {
+        const str = `${t.title} ${t.locations} ${t.overview || ''} ${(t.tags || []).join(' ')}`.toLowerCase();
+        return str.includes(q);
+    });
+
+    if (matched.length > 0) {
+        container.innerHTML = matched.slice(0, 4).map(t => `
+            <div class="mobile-search-item" onclick="selectTripFromMobile(${t.id})">
+                <div style="font-weight:600;font-size:13px;color:var(--dark);">${highlightSearchMatch(t.title, val)}</div>
+                <div style="font-size:11px;color:#67786f;display:flex;justify-content:space-between;margin-top:2px;">
+                    <span>${t.duration_days} Days &bull; ${t.locations}</span>
+                    <strong style="color:var(--green);">${formatPrice(t.price_inr)}</strong>
+                </div>
+            </div>
+        `).join("");
+    } else {
+        container.innerHTML = `<div style="padding:16px;text-align:center;font-size:12px;color:#77887e;">No packages found matching "${escapeHtml(val)}"</div>`;
+    }
+}
+
+function selectMobileQuery(q) {
+    const inp = document.getElementById("mobileSearchInput");
+    if (inp) inp.value = q;
+    handleMobileSearchInput(q);
+    toggleMobileSearchBar();
+    scrollToTrips();
+    showToast(`Showing results for "${q}"`);
+}
+
+function selectTripFromMobile(id) {
+    toggleMobileSearchBar();
+    openTripCustomizerModal(id);
+}
+
+function executeMobileSearchSubmit() {
+    toggleMobileSearchBar();
+    scrollToTrips();
+}
+
 // Global Keyboard Shortcut Listener
 window.addEventListener("keydown", e => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         const input = document.getElementById("globalSearchInput");
-        if (input) {
+        if (input && window.innerWidth > 768) {
             input.focus();
             openSearchAutocomplete();
+        } else {
+            toggleMobileSearchBar();
         }
     } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault();
         const input = document.getElementById("globalSearchInput");
-        if (input) {
+        if (input && window.innerWidth > 768) {
             input.focus();
             openSearchAutocomplete();
+        } else {
+            toggleMobileSearchBar();
         }
     } else if (e.key === 'Escape') {
         closeSearchMenu();
+        closeMobileDrawer();
+        const mobileRow = document.getElementById("mobileSearchRow");
+        if (mobileRow) mobileRow.classList.remove("show");
     }
 });
 
@@ -3726,6 +4695,12 @@ window.addEventListener("click", e => {
     }
     if (!e.target.closest(".nav-item-wrap") && !e.target.closest(".currency-dropdown-wrap")) {
         closeAllDropdowns();
+    }
+    if (!e.target.closest("#mobileSearchRow") && !e.target.closest(".btn-mobile-search")) {
+        const mobileRow = document.getElementById("mobileSearchRow");
+        if (mobileRow && mobileRow.classList.contains("show")) {
+            mobileRow.classList.remove("show");
+        }
     }
     const modal = document.getElementById("appModal");
     if (e.target === modal) {
